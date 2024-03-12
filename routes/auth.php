@@ -43,11 +43,6 @@ Route::middleware('guest:admin')->group(function () {
     Route::post('admin/login', [Admin\Auth\AuthenticatedSessionController::class, 'store']);
 });
 
-Route::middleware('auth:admin')->group(function () {
-    Route::post('admin/logout', [Admin\Auth\AuthenticatedSessionController::class, 'destroy'])
-                ->name('admin.logout');
-});
-
 
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
@@ -70,4 +65,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+});
+
+Route::middleware('auth:admin')->group(function () {
+    Route::post('admin/logout', [Admin\Auth\AuthenticatedSessionController::class, 'destroy'])
+                ->name('admin.logout');
 });
